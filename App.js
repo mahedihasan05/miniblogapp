@@ -1,20 +1,30 @@
-import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
+import 'react-native-reanimated';
+import 'react-native-gesture-handler';
+import React from 'react';
+import { NavigationContainer } from '@react-navigation/native';
+import { createStackNavigator } from '@react-navigation/stack';
+import { ApolloAppProvider } from './src/apollo/client';
+import { ThemeProvider } from './src/context/ThemeContext';
+import PostList from './src/screens/PostList';
+import PostDetails from './src/screens/PostDetails';
+import Favorites from './src/screens/Favorites';
+
+
+const Stack = createStackNavigator();
+
 
 export default function App() {
-  return (
-    <View style={styles.container}>
-      <Text>Open up App.js to start working on your app!</Text>
-      <StatusBar style="auto" />
-    </View>
-  );
+return (
+<ApolloAppProvider>
+<ThemeProvider>
+<NavigationContainer>
+<Stack.Navigator>
+<Stack.Screen name="Home" component={PostList} />
+<Stack.Screen name="Details" component={PostDetails} />
+<Stack.Screen name="Favorites" component={Favorites} />
+</Stack.Navigator>
+</NavigationContainer>
+</ThemeProvider>
+</ApolloAppProvider>
+);
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
